@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>QQ列表展开收缩扩展</title>
+    <style>
+        ul,h2{padding: 0px; margin: 0px}
+        #list{
+            width: 260px;
+            border: 1px solid #000;
+            margin: 0 auto;
+        }
+        li { list-style:none; }
+        .lis li{
+            border-bottom: 1px solid #000;
+            height: 30px;
+            text-indent: 20px;
+            line-height: 30px;
+        }
+        .lis .select{
+            background:red;
+            color: #fff;
+        }
+        h2{
+            height: 30px;
+            line-height: 30px;
+            text-indent: 20px;
+            background: url(img/ico1.gif) no-repeat 5px center deepskyblue;
+            color: #000;
+        }
+        #list .active{
+            background: url(img/ico2.gif) no-repeat 5px center blue;
+            color: #000;
+        }
+        .lis ul{
+            display: none;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+            var oUl = document.getElementById('list');
+            var aH2 = oUl.getElementsByTagName('h2');
+            var aUl = oUl.getElementsByTagName('ul');
+            var aLi = null;
+            var arrLi = [];
+            for(var i=0; i<aH2.length ; i++){
+                aH2[i].index = i;
+                aH2[i].onclick = function () {
+                    for(var i=0; i<aH2.length ; i++){
+                        if(this.index != i){
+                            aUl[i].style.display = 'none';
+                            aH2[i].className = '';
+                        }
+                    }
+                    if(this.className == ''){
+                        this.className = 'active';
+                        aUl[this.index].style.display = 'block';
+                    }else if(this.className == 'active'){
+                        this.className = '';
+                        aUl[this.index].style.display = 'none';
+                    }
+                }
+            }
+            for(var i=0; i<aH2.length ; i++){
+                aLi = aUl[i].getElementsByTagName('li');
+                for(var j=0; j<aLi.length ; j++)
+                    arrLi.push(aLi[j]);
+            }
+            for(var i=0; i<arrLi.length ; i++){
+                arrLi[i].onclick = function () {
+                    for(var i=0; i<arrLi.length ; i++){
+                        if(this != arrLi[i]){
+                            arrLi[i].className = '';
+                        }
+                    }
+                    if(this.className == '')
+                        this.className = 'select';
+                    else
+                        this.className = '';
+                }
+            }
+
+        }
+    </script>
+</head>
+<body>
+<ul id="list">
+    <li class="lis">
+        <h2>我的好友</h2>
+        <ul>
+            <li>张三</li>
+            <li>张三</li>
+            <li>张三</li>
+            <li>张三</li>
+            <li>张三</li>
+        </ul>
+    </li>
+    <li class="lis">
+        <h2>企业好友</h2>
+        <ul>
+            <li>李四</li>
+            <li>李四</li>
+            <li>李四</li>
+            <li>李四</li>
+            <li>李四</li>
+        </ul>
+    </li>
+    <li class="lis">
+        <h2>黑名单</h2>
+        <ul>
+            <li>王五</li>
+            <li>赵六</li>
+            <li>十多个</li>
+        </ul>
+    </li>
+</ul>
+</body>
+</html>
